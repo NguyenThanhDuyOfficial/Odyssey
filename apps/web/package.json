@@ -1,51 +1,36 @@
 {
-  "name": "@nguyenthanhduyofficial/web",
-  "version": "1.0.0",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "typecheck": "tsc --noEmit",
-    "test": "dotenv -e ../../packages/database/.env.test -- vitest run",
-    "test:watch": "dotenv -e ../../packages/database/.env.test -- vitest",
-    "test:coverage": "dotenv -e ../../packages/database/.env.test -- vitest run --coverage"
-  },
-  "dependencies": {
-    "@hookform/resolvers": "^5.9.1",
-    "@nguyenthanhduyofficial/database": "workspace:*",
-    "@nguyenthanhduyofficial/schemas": "workspace:*",
-    "@nguyenthanhduyofficial/ui": "workspace:*",
-    "better-auth": "^1.7.7",
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.49.0",
-    "next": "16.3.6",
-    "next-intl": "^4.14.8",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "react-hook-form": "^7.89.0",
-    "sonner": "^2.0.8",
-    "tailwind-merge": "^3.7.0",
-    "zod": "link:@hookform/resolvers/zod",
-    "zustand": "^5.0.15"
-  },
-  "devDependencies": {
-    "@nguyenthanhduyofficial/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@vitest/coverage-v8": "^4.1.11",
-    "dotenv-cli": "^11.0.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.6",
-    "tailwindcss": "^4",
-    "typescript": "^5",
-    "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.11"
-  },
-  "packageManager": "pnpm@11.26.0"
+	"name": "@nguyenthanhduyofficial/web",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"typecheck": "next typegen && tsc --noEmit"
+	},
+	"dependencies": {
+		"@nguyenthanhduyofficial/prisma": "workspace:*",
+		"@nguyenthanhduyofficial/ui": "workspace:*",
+		"better-auth": "^1.7.14",
+		"next": "16.4.3",
+		"next-intl": "^4.14.9",
+		"react": "19.3.0",
+		"react-dom": "19.3.0"
+	},
+	"devDependencies": {
+		"@nguyenthanhduyofficial/typescript-config": "workspace:*",
+		"@tailwindcss/turbopack": "^4",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"tailwindcss": "^4",
+		"typescript": "^5"
+	},
+	"packageManager": "pnpm@11.26.0"
 }

@@ -1,0 +1,37 @@
+{
+	"name": "@nguyenthanhduyofficial/prisma",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/prisma.ts"
+	},
+	"scripts": {
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"generate": "pnpm prisma generate",
+		"seed": "pnpm dlx tsx prisma/seed.ts",
+		"seed:local": "dotenv run -f .env.local -- pnpm dlx tsx prisma/seed.ts",
+		"migrate:dev": "dotenv run -f .env.local -- prisma migrate dev",
+		"migrate:reset": "dotenv run -f .env.local -- prisma migrate reset",
+		"migrate:deploy": "prisma deploy",
+		"test:migrate:dev": "dotenv run -f .env.test -- prisma migrate dev",
+		"test:migrate:reset": "dotenv run -f .env.test -- prisma migrate reset"
+	},
+	"dependencies": {
+		"@prisma/adapter-pg": "^7.10.1",
+		"@prisma/client": "^7.10.1",
+		"dotenv": "^18.0.9",
+		"pg": "^8.23.1"
+	},
+	"devDependencies": {
+		"@nguyenthanhduyofficial/typescript-config": "workspace:*",
+		"@types/node": "^20.19.43",
+		"@types/pg": "^8.23.1",
+		"prisma": "^7.10.1"
+	}
+}
