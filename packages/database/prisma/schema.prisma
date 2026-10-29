@@ -1,0 +1,352 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../generated/client"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// User ///
+enum UserRole {
+  USER
+  ADMIN
+  STAFF
+}
+
+model User {
+  role UserRole @default(USER)
+
+  /// Better Auth Fields
+  id            String   @id
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(3)
+
+  orders           Order[]
+  productLoves     ProductLove[]
+  sessions         Session[]
+  accounts         Account[]
+  checkoutSessions CheckoutSession[]
+
+  @@map("user")
+}
+
+model Session {
+  /// Better Auth Fields
+  id        String   @id
+  userId    String
+  token     String   @unique
+  expiresAt DateTime @db.Timestamptz(3)
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @db.Timestamptz(3)
+  updatedAt DateTime @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "session_userId_idx")
+  @@map("session")
+}
+
+model Account {
+  /// Better Auth Fields
+  id                    String    @id
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime? @db.Timestamptz(3)
+  refreshTokenExpiresAt DateTime? @db.Timestamptz(3)
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @db.Timestamptz(3)
+  updatedAt             DateTime  @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "account_userId_idx")
+  @@map("account")
+}
+
+model Verification {
+  /// Better Auth Fields
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime @db.Timestamptz(3)
+  createdAt  DateTime @db.Timestamptz(3)
+  updatedAt  DateTime @db.Timestamptz(3)
+
+  @@index([identifier], map: "verification_identifier_idx")
+  @@map("verification")
+}
+
+/// Product ///
+model ProductLove {
+  userId    String
+  productId String
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([userId, productId])
+  @@index([productId])
+  @@map("product_love")
+}
+
+model ProductTag {
+  productId String
+  tagId     String
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([productId, tagId])
+  @@index([tagId])
+  @@map("product_tag")
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+  slug String @unique
+
+  products ProductTag[]
+
+  @@map("tag")
+}
+
+model ProductCategory {
+  productId  String
+  categoryId String
+
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([productId, categoryId])
+  @@index([categoryId])
+  @@map("product_category")
+}
+
+model Category {
+  id       String  @id @default(cuid())
+  parentId String?
+
+  name String
+  slug String @unique
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  parent   Category?         @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children Category[]        @relation("CategoryTree")
+  products ProductCategory[]
+
+  @@index([parentId])
+  @@map("category")
+}
+
+model ProductImage {
+  id        String @id @default(cuid())
+  variantId String
+
+  url       String
+  alt       String?
+  isPrimary Boolean @default(false)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@index([variantId])
+  @@map("product_image")
+}
+
+model ProductVariant {
+  id        String @id @default(cuid())
+  productId String
+
+  sku      String  @unique
+  size     String  @default("")
+  color    String  @default("")
+  price    Int
+  stock    Int     @default(0)
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  product Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  images  ProductImage[]
+
+  @@index([productId])
+  @@map("product_variant")
+}
+
+model Product {
+  id String @id @default(cuid())
+
+  name        String
+  slug        String  @unique
+  description String?
+  starRating  Decimal @default(0) @db.Decimal(4, 2)
+  reviewCount Int     @default(0)
+  soldCount   Int     @default(0)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  variants   ProductVariant[]
+  categories ProductCategory[]
+  tags       ProductTag[]
+  loves      ProductLove[]
+
+  @@map("product")
+}
+
+/// CheckoutSession ///
+enum CheckoutSessionStatus {
+  DRAFT
+  CONVERTED
+  EXPIRED
+  CANCELLED
+}
+
+model CheckoutSessionItem {
+  id        String @id @default(cuid())
+  sessionId String
+  productId String
+  variantId String
+
+  name     String
+  image    String
+  price    Int
+  quantity Int
+  subTotal Int
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  session CheckoutSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, variantId])
+  @@index([variantId])
+  @@map("checkout_session_item")
+}
+
+model CheckoutSession {
+  id      String  @id @default(cuid())
+  userId  String
+  orderId String? @unique
+
+  status    CheckoutSessionStatus @default(DRAFT)
+  subTotal  Int
+  total     Int
+  expiresAt DateTime              @db.Timestamptz(3)
+
+  convertedAt   DateTime? @db.Timestamptz(3)
+  cancelledAt   DateTime? @db.Timestamptz(3)
+  cancelledNote String?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  user  User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order Order?                @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  items CheckoutSessionItem[]
+
+  @@index([userId, status])
+  @@index([status, expiresAt])
+  @@index([expiresAt])
+  @@map("checkout_session")
+}
+
+/// ORDER ///
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPING
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  COD
+  VNPAY
+  MOMO
+  BANK_TRANSFER
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String?
+  variantId String?
+
+  name     String
+  image    String
+  price    Int
+  quantity Int
+  subTotal Int
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_item")
+}
+
+model Order {
+  id     String @id @default(cuid())
+  userId String
+
+  code          String        @unique
+  status        OrderStatus   @default(PENDING)
+  subTotal      Int
+  shippingFee   Int           @default(0)
+  total         Int
+  paymentMethod PaymentMethod @default(COD)
+  paymentStatus PaymentStatus @default(UNPAID)
+
+  shippingName    String
+  shippingPhone   String
+  shippingAddress String
+  note            String?
+
+  paidAt        DateTime? @db.Timestamptz(3)
+  shippedAt     DateTime? @db.Timestamptz(3)
+  deliveredAt   DateTime? @db.Timestamptz(3)
+  cancelledAt   DateTime? @db.Timestamptz(3)
+  cancelledNote String?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Restrict)
+  items           OrderItem[]
+  checkoutSession CheckoutSession?
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([userId, status])
+  @@index([status])
+  @@index([createdAt])
+  @@map("order")
+}

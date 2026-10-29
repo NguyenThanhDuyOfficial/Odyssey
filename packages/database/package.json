@@ -1,0 +1,36 @@
+{
+  "name": "@nguyenthanhduyofficial/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./prisma/prisma.ts"
+  },
+  "main": "./prisma/prisma.ts",
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "generate": "pnpm prisma generate",
+    "seed": "dotenv run -f .env.local -- pnpm dlx tsx prisma/seed.ts",
+    "seed:prod": "dotenv run -f .env.prod -- pnpm dlx tsx prisma/seed.ts",
+    "migrate:dev": "dotenv run -f .env.local -- prisma migrate dev",
+    "migrate:reset": "dotenv run -f .env.local -- prisma migrate reset",
+    "migrate:deploy": "dotenv run -f .env -- prisma deploy",
+    "test:migrate:dev": "dotenv run -f .env.test -- prisma migrate dev",
+    "test:migrate:reset": "dotenv run -f .env.test -- prisma migrate reset"
+  },
+  "dependencies": {
+    "@nguyenthanhduyofficial/typescript-config": "workspace:*",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "dotenv": "^18.0.5",
+    "pg": "^8.23.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "@types/pg": "^8.23.1",
+    "prisma": "^7.10.0",
+    "typescript": "^5.9.3"
+  }
+}

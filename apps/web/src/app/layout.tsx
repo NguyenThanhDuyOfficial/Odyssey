@@ -1,34 +1,29 @@
-import type { Metadata } from "next";
-import { Roboto, Playwrite_VN } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@teispace/next-themes";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
 
-const roboto = Roboto({
-  subsets: ["latin", "vietnamese"],
-  weight: ["100", "300", "400", "500", "800", "700", "900"],
-  display: "swap",
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Odyssey",
+  title: 'nguyenthanhduyofficial',
+  description: '',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
-      suppressHydrationWarning
-      lang="vi"
-      className={`${roboto.className} h-full antialiased`}
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider attribute="class" defaultTheme="light">
-          {children}
-        </ThemeProvider>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
