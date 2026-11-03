@@ -19,6 +19,7 @@ model User {
   updatedAt     DateTime  @updatedAt @db.Timestamptz(3)
   sessions      Session[]
   accounts      Account[]
+  posts         Posts[]
 }
 
 model Session {
@@ -71,4 +72,17 @@ model Verification {
 
   @@index([identifier], map: "verification_identifier_idx")
   @@map("verification")
+}
+
+model Posts {
+  id      String  @id
+  userId  String
+  title   String
+  content String
+  image   String?
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id])
 }
