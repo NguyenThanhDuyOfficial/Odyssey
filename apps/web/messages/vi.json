@@ -1,6 +1,11 @@
 {
+	"Header": {
+		"login": "Đăng nhập",
+		"isPending": "Đang tải",
+		"userAvatar": "Ảnh người dùng"
+	},
 	"Home": {
-		"title": "Học và việc suốt đời, <br/>không có điểm dừng",
+		"title": "Học, <br></br>Học nữa, <br></br>Học mãi, ",
 		"description": "Cộng đồng học tập quy tụ các tri thức khắp Việt Nam"
 	}
 }

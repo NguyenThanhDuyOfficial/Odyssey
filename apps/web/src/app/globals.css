@@ -1,13 +1,24 @@
+@import "tailwindcss";
+@import "tw-animate-css";
 @import "@nguyenthanhduyofficial/ui/globals.css";
 
-@theme {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
-}
+@source "../../../../packages/ui/src/**/*.{ts,tsx}";
 
 :root {
-	--background: #faf7f2;
-	--foreground: #2d2420;
+	--bg: oklch(98.5% 0.006 85);
+	--surface: oklch(96% 0.01 85);
+	--border: oklch(90% 0.012 80);
+	--heading: oklch(19% 0.01 55);
+	--text: oklch(24% 0.012 55);
+	--text-muted: oklch(48% 0.012 55);
+	--link: oklch(48% 0.14 30);
+	--link-hover: oklch(40% 0.14 30);
+	--accent: oklch(75% 0.06 75);
+	--code-bg: oklch(94% 0.012 80);
+
+	--background: var(--bg);
+	--foreground: var(--text);
+	--primary: #6366f1;
 }
 
 @layer base {
