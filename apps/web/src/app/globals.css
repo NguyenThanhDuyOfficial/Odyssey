@@ -18,14 +18,20 @@
 
 	--background: var(--bg);
 	--foreground: var(--text);
-	--primary: #6366f1;
+	--primary: oklch(0.585 0.233 277.117);
+	--secondary: oklch(0.585 0.233 277.117 / 0.7);
+	--secondary-foreground: var(--bg);
 }
 
 @layer base {
 	h1,
 	h2,
+	h4,
+	h5 {
+		@apply text-3xl font-medium;
+	}
 	h3 {
-		@apply font-medium;
+		@apply text-2xl font-medium;
 	}
 	h1 {
 		@apply text-4xl;

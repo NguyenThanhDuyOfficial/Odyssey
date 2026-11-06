@@ -5,8 +5,6 @@ pre-commit:
       glob: "*.{js,ts,jsx,tsx,json,css}"
       run: pnpm biome check --staged --write {staged_files}
       stage_fixed: true
-    typecheck:
-      run: pnpm typecheck
 
 commit-msg:
   commands:
@@ -16,5 +14,7 @@ commit-msg:
 pre-push:
   parallel: true
   commands:
+    typecheck:
+      run: pnpm typecheck
     test:
       run: pnpm test
