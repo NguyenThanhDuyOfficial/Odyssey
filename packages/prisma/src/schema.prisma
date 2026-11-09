@@ -75,11 +75,14 @@ model Verification {
 }
 
 model Posts {
-  id      String  @id
-  userId  String
-  title   String
-  content String
-  image   String?
+  id          String  @id @default(cuid())
+  userId      String
+  slug        String  @unique
+  title       String
+  description String?
+  content     String
+  image       String?
+  published   Boolean @default(false)
 
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @db.Timestamptz(3)

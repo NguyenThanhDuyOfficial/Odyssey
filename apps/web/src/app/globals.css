@@ -5,22 +5,17 @@
 @source "../../../../packages/ui/src/**/*.{ts,tsx}";
 
 :root {
-	--bg: oklch(98.5% 0.006 85);
 	--surface: oklch(96% 0.01 85);
 	--border: oklch(90% 0.012 80);
 	--heading: oklch(19% 0.01 55);
 	--text: oklch(24% 0.012 55);
 	--text-muted: oklch(48% 0.012 55);
-	--link: oklch(48% 0.14 30);
-	--link-hover: oklch(40% 0.14 30);
-	--accent: oklch(75% 0.06 75);
-	--code-bg: oklch(94% 0.012 80);
 
-	--background: var(--bg);
+	--background: oklch(98.5% 0.006 85);
 	--foreground: var(--text);
 	--primary: oklch(0.585 0.233 277.117);
 	--secondary: oklch(0.585 0.233 277.117 / 0.7);
-	--secondary-foreground: var(--bg);
+	--secondary-foreground: var(--background);
 }
 
 @layer base {

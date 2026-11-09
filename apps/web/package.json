@@ -17,12 +17,19 @@
 	"dependencies": {
 		"@nguyenthanhduyofficial/prisma": "workspace:*",
 		"@nguyenthanhduyofficial/ui": "workspace:*",
+		"@tiptap/extension-link": "^3.32.3",
+		"@tiptap/extension-placeholder": "^3.32.3",
+		"@tiptap/pm": "^3.32.3",
+		"@tiptap/react": "^3.32.3",
+		"@tiptap/starter-kit": "^3.32.3",
 		"better-auth": "^1.7.14",
+		"isomorphic-dompurify": "^4.6.0",
 		"next": "16.4.3",
 		"next-intl": "^4.14.9",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
-		"react-icons": "^5.7.0"
+		"react-icons": "^5.7.0",
+		"zod": "^4.6.7"
 	},
 	"devDependencies": {
 		"@nguyenthanhduyofficial/typescript-config": "workspace:*",

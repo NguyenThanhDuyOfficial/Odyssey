@@ -29,7 +29,11 @@ export default function Home() {
 						<Button
 							nativeButton={false}
 							render={
-								<a href="https://discord.gg/SWYkNVdXd9">
+								<a
+									href="https://discord.gg/SWYkNVdXd9"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									<FaDiscord /> Discord
 								</a>
 							}
@@ -38,7 +42,11 @@ export default function Home() {
 							variant="secondary"
 							nativeButton={false}
 							render={
-								<a href="https://m.me/j/AbZRpYMEu1kY0dKo/?send_source=gc%3Acopy_invite_link_t">
+								<a
+									href="https://m.me/j/AbZRpYMEu1kY0dKo/?send_source=gc%3Acopy_invite_link_t"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									<FaFacebookMessenger /> Messenger
 								</a>
 							}
