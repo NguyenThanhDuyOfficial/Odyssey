@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
 	images: {
 		remotePatterns: [
 			{ protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+			new URL("https://cdn.discordapp.com/avatars/**"),
 		],
 	},
 	transpilePackages: ["@nguyenthanhduyofficial/ui"],

@@ -23,6 +23,7 @@ export function RichTextEditor({
 	placeholder,
 }: RichTextEditorProps) {
 	const editor = useEditor({
+		immediatelyRender: false,
 		extensions: [
 			StarterKit,
 			Link.configure({
@@ -34,7 +35,6 @@ export function RichTextEditor({
 			}),
 		],
 		content: value,
-		immediatelyRender: false,
 		editorProps: {
 			attributes: {
 				class:

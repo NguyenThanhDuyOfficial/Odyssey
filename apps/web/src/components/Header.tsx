@@ -14,7 +14,7 @@ export default function Header() {
 				</div>
 
 				<div className="flex gap-4 items-center">
-					<Link href="/wiki">Wiki</Link>
+					{/* <Link href="/wiki">Wiki</Link> */}
 					<Link href="/blog">Blog</Link>
 					<LoginButton />
 				</div>

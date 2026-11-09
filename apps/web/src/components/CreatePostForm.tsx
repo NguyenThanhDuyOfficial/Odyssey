@@ -35,9 +35,6 @@ export default function CreatePostForm() {
 								type="text"
 								placeholder={t("titlePlaceholder")}
 								aria-invalid={!!fieldErrors?.title}
-								aria-describedly={
-									fieldErrors?.title ? "title-error" : undefined
-								}
 								className="text-2xl font-medium border-none"
 							/>
 							{fieldErrors?.title && (

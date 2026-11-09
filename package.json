@@ -25,7 +25,8 @@
 		"check": "pnpm format && pnpm lint && pnpm typecheck && pnpm test",
 		"prepare": "lefthook install",
 		"changeset": "changeset",
-		"generate": "turbo run generate"
+		"generate": "turbo run generate",
+		"migrate:dev": "turbo run migrate:dev"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.6.3",

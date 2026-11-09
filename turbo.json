@@ -32,6 +32,7 @@
 			"dependsOn": ["^build"],
 			"outputs": ["playwright-report/**", "test-results/**"]
 		},
-		"generate": {}
+		"generate": {},
+		"migrate:dev": {}
 	}
 }
