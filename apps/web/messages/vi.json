@@ -1,0 +1,24 @@
+{
+	"Header": {
+		"login": "Đăng nhập",
+		"isPending": "Đang tải",
+		"userAvatar": "Ảnh người dùng"
+	},
+	"Login": {
+		"login": "Đăng nhập",
+		"signup": "Đăng ký",
+		"password": "Mật khẩu"
+	},
+	"Home": {
+		"title": "Học, <br></br>Học nữa, <br></br>Học mãi, ",
+		"description": "Cộng đồng học tập quy tụ các tri thức khắp Việt Nam"
+	},
+	"Blog": {
+		"title": "Bài học và biết ơn",
+		"description": "Nơi bạn dùng sự nhiệt huyết để học hỏi và chia sẻ những trải nghiệm độc nhất, kiến thức thú vị cho mọi người và cho bản thân.",
+		"newPost": "Đăng bài",
+		"titlePlaceholder": "Tựa đề",
+		"descriptionPlaceholder": "Tóm tắt nội dung trong 1-2 câu...",
+		"contentPlaceholder": "Ngày xửa ngày xưa..."
+	}
+}

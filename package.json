@@ -1,30 +1,50 @@
 {
-  "name": "odyssey",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "packageManager": "pnpm@11.3.0",
-  "scripts": {
-    "start": "pnpm run --parallel start",
-    "dev": "pnpm run --parallel dev",
-    "dev:web": "pnpm --filter web dev",
-    "dev:api": "pnpm --filter api dev",
-    "build": "pnpm run --parallel build",
-    "build:web": "pnpm --filter web build",
-    "build:api": "pnpm --filter @odyssey/api build",
-    "lint": "pnpm run --paralled lint",
-    "clean": "pnpm -r exec rm -rf node_modules .next distt",
-    "test": "echo \"Error: no test specified\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "devDependencies": {
-    "@types/node": "^26.1.2",
-    "typescript": "^7.0.2"
-  },
-  "dependencies": {
-    "next": "^16.3.0"
-  }
+	"$schema": "https://json.schemastore.org/package.json",
+	"name": "@nguyenthanhduyofficial/template",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Next.js Template for @nguyenthanhduyofficial projects",
+	"license": "GPL-3.0-only",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/NguyenThanhDuyOfficial/Next.js-Template"
+	},
+	"engines": {
+		"node": ">=22.12.0",
+		"pnpm": ">=11.0.0"
+	},
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"format": "turbo run format",
+		"typecheck": "turbo run typecheck",
+		"test": "turbo run test",
+		"test:e2e": "turbo run test:e2e",
+		"check": "pnpm format && pnpm lint && pnpm typecheck && pnpm test",
+		"prepare": "lefthook install",
+		"changeset": "changeset",
+		"generate": "turbo run generate",
+		"migrate:dev": "turbo run migrate:dev"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.3",
+		"@changesets/cli": "^3.0.3",
+		"@commitlint/cli": "^21.2.4",
+		"@commitlint/config-conventional": "^21.2.4",
+		"@nguyenthanhduyofficial/typescript-config": "workspace:*",
+		"lefthook": "^2.2.2",
+		"turbo": "^2.11.10"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "^11.0.0",
+			"onFail": "download"
+		}
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js,jsx,json}": "biome check --write --no-errors-on-unmatched"
+	}
 }

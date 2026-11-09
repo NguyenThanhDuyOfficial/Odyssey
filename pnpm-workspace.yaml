@@ -2,8 +2,8 @@ packages:
   - "apps/*"
   - "packages/*"
 allowBuilds:
-  '@prisma/engines': true
-  '@scarf/scarf': true
-  esbuild: true
+  "@parcel/watcher": true
+  "@prisma/engines": true
+  "@swc/core": true
+  lefthook: false
   prisma: true
-  unrs-resolver: true
