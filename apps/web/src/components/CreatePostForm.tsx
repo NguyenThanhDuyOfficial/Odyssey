@@ -20,6 +20,7 @@ export default function CreatePostForm() {
 		CreatePostState,
 		FormData
 	>(createPost, null);
+	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const fieldErrors = state?.errors?.fieldErrors;
 	const formErrors = state?.errors?.formErrors;
@@ -36,6 +37,8 @@ export default function CreatePostForm() {
 								placeholder={t("titlePlaceholder")}
 								aria-invalid={!!fieldErrors?.title}
 								className="text-2xl font-medium border-none"
+								value={title}
+								onChange={(e) => setTitle(e.target.value)}
 							/>
 							{fieldErrors?.title && (
 								<FieldError id="title--error">

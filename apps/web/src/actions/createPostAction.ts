@@ -34,8 +34,8 @@ export async function createPost(
 
 	const parsed = CreatePostSchema.safeParse({
 		title: formData.get("title"),
-		description: formData.get("description"),
-		contennt: formData.get("content"),
+		description: formData.get("description") || undefined,
+		content: formData.get("content"),
 		published: formData.get("published") === "on",
 	});
 
