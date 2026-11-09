@@ -19,6 +19,13 @@ export async function getPostList({ page, limit }: GetPostList) {
 			skip,
 			take: limit,
 			orderBy: { createdAt: "desc" },
+			include: {
+				user: {
+					select: {
+						name: true,
+					},
+				},
+			},
 		}),
 		prisma.posts.count(),
 	]);
