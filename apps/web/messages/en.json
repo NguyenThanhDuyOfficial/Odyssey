@@ -1,8 +1,24 @@
 {
 	"Header": {
-		"login": "Login"
+		"login": "Log in",
+		"isPending": "Loading",
+		"userAvatar": "User avatar"
+	},
+	"Login": {
+		"login": "Log in",
+		"signup": "Sign up",
+		"password": "Password"
 	},
 	"Home": {
-		"title": "The more you learn <br /> The more you see"
+		"title": "Learn, <br></br>Learn more, <br></br>Learn forever, ",
+		"description": "A learning community that brings together knowledge from all over Vietnam"
+	},
+	"Blog": {
+		"title": "Lessons and Gratitude",
+		"description": "A place where you use your passion to learn and share unique experiences and interesting knowledge with others and with yourself.",
+		"newPost": "New post",
+		"titlePlaceholder": "Title",
+		"descriptionPlaceholder": "Summarize in 1-2 sentences...",
+		"contentPlaceholder": "Once upon a time..."
 	}
 }
