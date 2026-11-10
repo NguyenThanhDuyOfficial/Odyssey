@@ -1,4 +1,4 @@
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtmlLib, { type Attributes, type Tag } from "sanitize-html";
 
 const ALLOWED_TAGS = [
 	"p",
@@ -22,12 +22,37 @@ const ALLOWED_TAGS = [
 	"hr",
 ];
 
-const ALLOWED_ATTR = ["href", "target", "rel", "src", "alt", "title", "class"];
+const ALLOWED_ATTR: Record<string, string[]> = {
+	a: ["href", "target", "rel", "title"],
+	img: ["src", "alt", "title"],
+	"*": ["class"],
+};
 
 export function sanitizeHtml(html: string): string {
-	return DOMPurify.sanitize(html, {
-		ALLOWED_TAGS,
-		ALLOWED_ATTR,
-		FORBID_ATTR: ["onerror", "onload", "onclick"],
+	return sanitizeHtmlLib(html, {
+		allowedTags: ALLOWED_TAGS,
+		allowedAttributes: ALLOWED_ATTR,
+		allowedSchemes: ["http", "https", "mailto", "tel"],
+		allowedSchemesByTag: {
+			img: ["http", "https", "data"],
+		},
+		transformTags: {
+			a: (tagName: string, attribs: Attributes): Tag => {
+				const next: Attributes = { ...attribs };
+
+				if (next.target === "_blank") {
+					const rel = (next.rel ?? "").split(/\s+/).filter(Boolean);
+					if (!rel.includes("noopener")) rel.push("noopener");
+					if (!rel.includes("noreferrer")) rel.push("noreferrer");
+					next.rel = rel.join(" ");
+				}
+
+				return { tagName, attribs: next };
+			},
+		},
+		disallowedTagsMode: "discard",
+		parser: {
+			lowerCaseTags: true,
+		},
 	});
 }
