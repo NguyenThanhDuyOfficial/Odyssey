@@ -4,12 +4,13 @@ import {
 	Collapsible,
 	CollapsibleContent,
 } from "@nguyenthanhduyofficial/ui/components/collapsible";
+import { Textarea } from "@nguyenthanhduyofficial/ui/components/textarea";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { type Editor, EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
-import { IoIosMore, IoMdRedo, IoMdUndo } from "react-icons/io";
+import { IoIosMore, IoMdCode, IoMdRedo, IoMdUndo } from "react-icons/io";
 
 interface RichTextEditorProps {
 	value: string;
@@ -22,6 +23,7 @@ export function RichTextEditor({
 	onChange,
 	placeholder,
 }: RichTextEditorProps) {
+	const [isHtmlMode, setIsHtmlMode] = useState(false);
 	const editor = useEditor({
 		immediatelyRender: false,
 		extensions: [
@@ -52,23 +54,53 @@ export function RichTextEditor({
 		}
 	}, [value, editor]);
 
+	const toggleHtmlMode = () => {
+		if (editor && isHtmlMode) {
+			editor.commands.setContent(value);
+		}
+		setIsHtmlMode((v) => !v);
+	};
+
 	if (!editor) {
 		return <div className="min-h-70 animate-pulse rounded-md bg-muted" />;
 	}
 
 	return (
 		<div className="rounded-md border border-input focus-within:ring-2 focus-within:ring-ring">
-			<EditorToolbar editor={editor} />
-			<EditorContent editor={editor} />
+			<EditorToolbar
+				editor={editor}
+				isHtmlMode={isHtmlMode}
+				onToggleHtmlMode={toggleHtmlMode}
+			/>
+			{isHtmlMode ? (
+				<Textarea value={value} onChange={(e) => onChange(e.target.value)} />
+			) : (
+				<EditorContent editor={editor} />
+			)}
 		</div>
 	);
 }
 
-function EditorToolbar({ editor }: { editor: Editor }) {
+function EditorToolbar({
+	editor,
+	isHtmlMode,
+	onToggleHtmlMode,
+}: {
+	editor: Editor;
+	isHtmlMode: boolean;
+	onToggleHtmlMode: () => void;
+}) {
 	const [isMoreOpen, setIsMoreOpen] = useState(false);
 	return (
 		<div className="border-b border-input p-2">
 			<div className="flex flex-wrap items-center gap-1 ">
+				<ToolbarButton
+					onClick={onToggleHtmlMode}
+					isActive={isHtmlMode}
+					label={isHtmlMode ? "Chuyển sang soạn thảo" : "Chuyển sang HTML"}
+				>
+					<IoMdCode />
+				</ToolbarButton>
 				<ToolbarButton
 					onClick={() => editor.chain().focus().undo().run()}
 					disabled={!editor.can().undo()}
